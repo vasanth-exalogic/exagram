@@ -1,0 +1,141 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="Styles.css">
+  <title>Instagram</title>
+  <style media="screen">
+    body{
+	background-color: #fafafa;
+	padding: 60px;
+	font-family: 'Droid Sans', sans-serif;
+
+}
+
+a{
+  text-decoration: none;
+}
+
+.Instagram-card{
+	background: #ffffff;
+	border: 1px solid #f2f2f2;
+	border-radius: 3px;
+	width: 100%;
+	max-width: 600px;
+	margin: auto;
+}
+
+.Instagram-card-header{
+	padding: 20px;
+	height: 40px;
+}
+
+.Instagram-card-user-image{
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	vertical-align: middle;
+}
+
+.Instagram-card-time{
+	float: right;
+	width: 80px;
+	padding-top:10px;
+	text-align: right;
+	color: #999;
+}
+
+.Instagram-card-user-name{
+	margin-left:20px;
+	font-weight:bold;
+  color: #262626;
+}
+
+.Instagram-card-content{
+  padding: 20px;
+}
+
+.Likes{
+  font-weight: bold;
+}
+
+.Instagram-card-content-user{
+  font-weight: bold;
+  color: #262626;
+}
+
+.hashtag{
+  color: #003569;
+}
+
+.comments{
+  color:#999;
+}
+
+.user-comment{
+  color: #003569;
+}
+
+.Instagram-card-footer{
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+hr{
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin-top: 30px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+
+}
+
+
+.footer-action-icons{
+  font-size: 16px;
+  color: #ccc;
+}
+
+.comments-input{
+  border: none;
+  margin-left: 10px;
+  width: 100%;
+}
+  </style>
+</head>
+<body>
+  <% @posts.each do |post| %>
+    <% user = User.find(post.user_id)%>
+    <% profile = Profile.find_by(user_id: post.user_id)%>
+    <div class="Instagram-card">
+    <div class="Instagram-card-header">
+      <%= image_tag(profile.dp, style: "width:50px;height:50px;crop:stretch;") %>
+      <%= link_to profile.username, show_user_path(profile.username), :class => "Instagram-card-user-name" %>
+      <div class="Instagram-card-time"> 1 sem </div>
+    </div>
+
+    <div class="Instagram-card-image">
+      <%= image_tag(post.image, style: "width:600px;height:600px;crop:stretch;") %>
+    </div>
+
+    <div class="Instagram-card-content">
+      <p class="Likes">0 </p>
+      <%= link_to profile.username, show_user_path(profile.username)%>
+      <p><a class="Instagram-card-content-user"><%= post.caption %></p>
+    <hr>
+    </div>
+
+    <div class="Instagram-card-footer">
+      <a class="footer-action-icons"href="#"><i class="fa fa-heart-o"></i></a>
+      <input class="comments-input" type="text" placeholder="Añade un comentario..."/>
+      <a class="footer-action-icons"href="#"><i class="fa fa-ellipsis-h"></i></a>
+    </div>
+
+  </div>
+  <br>
+  <% end %>
+</body>
+</html>
